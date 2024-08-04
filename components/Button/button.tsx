@@ -12,8 +12,9 @@ interface ButtonProps {
 export default function Button({ text, index }: ButtonProps) {
 	const { checkAnswer, updateLevel, endGame, question, clicked, setClicked } =
 		useQuestionContext()
-	const [colors, setColors] = useState(Colors.light.blue3)
 	const { delay } = useDelayActions()
+	const [colors, setColors] = useState([Colors.light.blue3,Colors.light.blue1])
+
 	function showCorrectAnswer() {
 		if (question?.correctAnswer == index) return true
 		return false
@@ -28,19 +29,20 @@ export default function Button({ text, index }: ButtonProps) {
 	useEffect(() => {
 		if (clicked > 0) {
 			if (showCorrectAnswer()) {
-				setColors(Colors.light.green)
+				setColors([Colors.light.green,Colors.light.green2])
 				//invalid
 			} else if (!showCorrectAnswer()) {
-				setColors(Colors.light.pink2)
+				setColors([Colors.light.pink2,Colors.light.pink])
 			}
 		}
 	}, [clicked])
 	return (
 		<LinearGradient
-			colors={[colors]} // Cores do gradiente
+			//colors={[colors]} // Cores do gradiente
+			colors={[colors[0],colors[1]]}
 			start={{ x: 0.5, y: 0 }} // Começa no topo
 			end={{ x: 0.5, y: 1 }} // Termina na parte de baixo
-			style={[styles.button, { backgroundColor: colors }]}
+			style={[styles.button, {  }]}
 		>
 			<TouchableOpacity onPress={action}>
 				<Text style={styles.text}>{text}</Text>
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
 		//padding: 15,
 		borderRadius: 10,
 		alignSelf: 'center',
-		backgroundColor: Colors.light.blue3,
+		//backgroundColor: Colors.light.blue3,
 		shadowColor: Colors.light.blue, // Cor da sombra
 		shadowOffset: { width: 0, height: 2 }, // Deslocamento da sombra
 		shadowOpacity: 0.25, // Opacidade da sombra

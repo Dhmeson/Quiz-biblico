@@ -19,7 +19,6 @@ export default function Count() {
 			duration: 10000, // duração da animação em milissegundos
 			useNativeDriver: false
 		}).start((c) => {
-			console.log(c)
 			if (c.finished) onCountEnd() // Chama a função quando a animação termina
 		})
 	}, [animatedWidth, level, gameState])
